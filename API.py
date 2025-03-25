@@ -1,10 +1,16 @@
 import requests as req
-# https://github.com/Zeylynn/PairProgramming.git
+# GitHub Link: https://github.com/Zeylynn/PairProgramming.git
 
 class FreeGames():
     """
     TO DO LATER: 
+    Konsolen als Filter hinzufügen
     Funktionen dokumentieren
+    Funktionen einheitlich benennen:
+        set für self. setzen
+        get für return
+        print für print lol
+    Nachdenken wann self.set und wann Variablen verwendet werden
     """
     def __init__(self, api_url=""):
         self.api_url = api_url
