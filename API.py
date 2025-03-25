@@ -1,34 +1,57 @@
-# https://github.com/Zeylynn/PairProgramming.git
-
 import requests as req
+# GitHub Link: https://github.com/Zeylynn/PairProgramming.git
 
-def getAPI(url):
-    return req.get(url).json()
+class FreeGames():
+    """
+    TO DO LATER: 
+    Konsolen als Filter hinzufügen
+    Funktionen dokumentieren
+    Funktionen einheitlich benennen:
+        set für self. setzen
+        get für return
+        print für print lol
+    Nachdenken wann self.set und wann Variablen verwendet werden
+    """
+    def __init__(self, api_url=""):
+        self.api_url = api_url
+        self.platformList = {0: "", 1: "?platform=pc", 2: "?platform=android"}
 
-url = "https://www.gamerpower.com/api/giveaways"
+    def getData(self, url):
+        return req.get(url).json()
 
-data = getAPI(url)
+    def setPlatform(self, platform):
+        self.platform = platform
 
-# Platform Input
-while(True):
-    try:
-        platform = input("Auf welcher Platform sollen die Spiele gespielt werden\n1) PC\n2) Android\n3) XBox\n4) Playstation\n5) Nintendo Switch\n")
+    def setPlatformFromUser(self):
+        while(True):
+            try:
+                platform = int(input("Nach welcher Platform soll gefiltert werden:\n0) Alle anzeigen\n1) PC\n2) Android\n"))
 
-        match platform:
-            case "1": platform = "PC"; break
-            case "2": platform = "Android"; break
-            case "3": platform = "Xbox"; break
-            case "4": platform = "Playstation"; break
-            case "5": platform = "Switch"; break
-    except KeyboardInterrupt:
-        break
-    except:
-        pass
+                self.setPlatform(self.platformList[platform])
+                break
+            except KeyboardInterrupt:
+                break
+            except:
+                print("Fehler bei der Eingabe. Try again!")
 
-j = 0
-for i in data:
-    if platform in i["platforms"]:
-        print("Titel:",(i["title"]),"URL:",i["open_giveaway_url"],"\n")
-        j += 1
+    def updateFilteredApiUrl(self):
+        self.filteredURL = self.api_url + self.platform
 
-print(f"Anzahl der gefundenen Beiträge: {j}")
+    def printResults(self, data):
+        print(f"Einträge gefunden: {self.getAmountOfEntries()}")
+        for entry in data:
+            print("Titel:",(entry["title"]),"URL:",entry["open_giveaway_url"],"\n")
+
+    def getAmountOfEntries(self):
+        return len(self.getData(self.filteredURL))
+
+    def run(self):
+        self.setPlatformFromUser()
+        self.updateFilteredApiUrl()
+        data = self.getData(self.filteredURL)
+        self.printResults(data)
+
+base_url = "https://www.gamerpower.com/api/giveaways"
+
+myProgramm = FreeGames(base_url)
+myProgramm.run()
