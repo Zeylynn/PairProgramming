@@ -3,29 +3,23 @@ import requests as req
 
 class FreeGames():
     """
-    TO DO LATER: ANZAHL AN EINTRÄGEN(MIT FUNKTION)
-    FUNKTIONEN DOKUMENTIEREN
-    FILTER FÜR ALLE PLATFORMEN
-    STANDARDWERT FÜR KONSTRUKTOR
+    TO DO LATER: 
+    Funktionen dokumentieren
     """
-    def __init__(self, apiurl):
-        self.api_url = apiurl
-        # STANDARTWERTE??
-        self.platform = "pc"
+    def __init__(self, api_url=""):
+        self.api_url = api_url
+        self.platformList = {0: "", 1: "?platform=pc", 2: "?platform=android"}
 
-        # DICTIONARY
-        self.platformList = {1: "pc", 2: "android"}
-
-    def getData(self):
-        return req.get(self.api_url).json()
+    def getData(self, url):
+        return req.get(url).json()
 
     def setPlatform(self, platform):
         self.platform = platform
 
-    def getPlatformFromUser(self):
+    def setPlatformFromUser(self):
         while(True):
             try:
-                platform = int(input("Auf welcher Platform sollen die Spiele gespielt werden\n1) PC\n2) Android\n"))
+                platform = int(input("Nach welcher Platform soll gefiltert werden:\n0) Alle anzeigen\n1) PC\n2) Android\n"))
 
                 self.setPlatform(self.platformList[platform])
                 break
@@ -34,17 +28,21 @@ class FreeGames():
             except:
                 print("Fehler bei der Eingabe. Try again!")
 
-    def updateAPI(self):
-        self.api_url = self.api_url + f"?platform={self.platform}"
+    def updateFilteredApiUrl(self):
+        self.filteredURL = self.api_url + self.platform
 
     def printResults(self, data):
+        print(f"Einträge gefunden: {self.getAmountOfEntries()}")
         for entry in data:
             print("Titel:",(entry["title"]),"URL:",entry["open_giveaway_url"],"\n")
 
+    def getAmountOfEntries(self):
+        return len(self.getData(self.filteredURL))
+
     def run(self):
-        self.getPlatformFromUser()
-        self.updateAPI()
-        data = self.getData()
+        self.setPlatformFromUser()
+        self.updateFilteredApiUrl()
+        data = self.getData(self.filteredURL)
         self.printResults(data)
 
 base_url = "https://www.gamerpower.com/api/giveaways"
