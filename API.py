@@ -1,21 +1,26 @@
 import requests as req
 # GitHub Link: https://github.com/Zeylynn/PairProgramming.git
-# TESTESTEST
 
 class FreeGames():
     """
     TO DO LATER: 
-    Konsolen als Filter hinzufügen
     Funktionen dokumentieren
     Funktionen einheitlich benennen:
         set für self. setzen
         get für return
         print für print lol
     Nachdenken wann self.set und wann Variablen verwendet werden
+    GitLense zu GitHub connecten
+    GitLense anschauen
     """
     def __init__(self, api_url=""):
         self.api_url = api_url
-        self.platformList = {0: "", 1: "?platform=pc", 2: "?platform=android"}
+        self.platformList = {0: "",
+                             1: "?platform=pc",
+                             2: "?platform=android",
+                             3: "?platform=xbox-one&xbox-series&xs,xbox-360",
+                             4: "?platform=ps4&ps5",
+                             5: "?platform=switch"}
 
     def getData(self, url):
         return req.get(url).json()
@@ -26,7 +31,7 @@ class FreeGames():
     def setPlatformFromUser(self):
         while(True):
             try:
-                platform = int(input("Nach welcher Platform soll gefiltert werden:\n0) Alle anzeigen\n1) PC\n2) Android\n"))
+                platform = int(input("Nach welcher Platform soll gefiltert werden:\n0) Alle anzeigen\n1) PC\n2) Android\n3) XBox\n4) Playstation\n5) Nintendo Switch\n"))
 
                 self.setPlatform(self.platformList[platform])
                 break
