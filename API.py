@@ -1,4 +1,12 @@
 import requests as req
+from PyQt6.QtWidgets import (
+    QApplication,
+    QWidget,
+    QLineEdit,
+    QPushButton,
+    QVBoxLayout
+)
+#import sys
 # GitHub Link: https://github.com/Zeylynn/PairProgramming.git
 
 class FreeGames():
@@ -57,7 +65,39 @@ class FreeGames():
         data = self.getData(self.filteredURL)
         self.printResults(data)
 
+class MainWindow(QWidget):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # set the window title
+        self.setWindowTitle('Qt Signals & Slots')
+
+        # create a button widget and connect its clicked signal
+        # to a method
+        button = QPushButton('Click me')
+        button.clicked.connect(self.button_clicked)
+
+        # place the buton on window using a vertical box layout
+        layout = QVBoxLayout()
+        self.setLayout(layout)
+
+        layout.addWidget(button)
+
+        # show the window
+        self.show()
+
+    def button_clicked(self):
+        print('clicked')
+
+
 base_url = "https://www.gamerpower.com/api/giveaways"
 
-myProgramm = FreeGames(base_url)
-myProgramm.run()
+# create the QApplication, ich brauch IMMER nur eine QApplication => das Objekt beinhaltet die Main Loop => Nur eine Loop
+app = QApplication([])
+
+# create the main window
+window = MainWindow()
+window.show()
+
+# start the event loop
+app.exec()
