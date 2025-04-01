@@ -1,12 +1,4 @@
-#import sys
 import api_handler as api
-from PyQt6.QtWidgets import (
-    QApplication,
-    QWidget,
-    QLineEdit,
-    QPushButton,
-    QVBoxLayout
-)
 
 class FreeGamesCLI():
     def __init__(self):
