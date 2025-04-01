@@ -25,9 +25,9 @@ class FreeGamesCLI():
                 print("Zurzeit kein Giveaway verfügbar!")
                 return
 
-        print(f"{len(data)} Einträge gefunden")
+        print(f"\n{len(data)} Einträge gefunden\n--------------------")
         for entry in data:
-            print(f"Titel:{entry["title"]}\nURL:{entry["open_giveaway_url"]}\n")
+            print(f"Titel:\t{entry["title"]}\nURL:\t{entry["open_giveaway_url"]}\n")
 
     def run(self):
         self.getUserPlatform()
