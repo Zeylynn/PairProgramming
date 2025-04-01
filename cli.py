@@ -2,17 +2,17 @@ import api_handler as api
 
 class FreeGamesCLI():
     def __init__(self):
-        self.api_handler = api.API_Handler()
+        self.__api_handler = api.API_Handler()
 
     def getUserPlatform(self):
         while(True):
             try:
                 print("Welche Platform möchtest du auswählen:")
-                for platform_entry in self.api_handler.get_platforms():
+                for platform_entry in self.__api_handler.get_platforms():
                     print(f"{platform_entry}")
                 
                 platform = input("")
-                self.api_handler.set_platform(platform)
+                self.__api_handler.set_platform(platform)
                 break
             except KeyboardInterrupt:
                 break
@@ -31,8 +31,8 @@ class FreeGamesCLI():
 
     def run(self):
         self.getUserPlatform()
-        self.api_handler.build()
-        self.printResults(self.api_handler.call())
+        self.__api_handler.build()
+        self.printResults(self.__api_handler.call())
 
 app = FreeGamesCLI()
 app.run()
