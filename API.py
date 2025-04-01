@@ -20,6 +20,10 @@ class FreeGames():
     Nachdenken wann self.set und wann Variablen verwendet werden
     GitLense zu GitHub connecten
     GitLense anschauen
+
+    in eigene Datein unterteilen(API Handler, CLI, GUI) => 3 Klassen API, CLI/GUI, FreeGames
+    Builder - Design Patterns für API
+    one Design Principle => eine Klasse ist nur für einen Zweck da
     """
     def __init__(self, api_url=""):
         self.api_url = api_url
@@ -39,7 +43,8 @@ class FreeGames():
     def setPlatformFromUser(self):
         while(True):
             try:
-                platform = int(input("Nach welcher Platform soll gefiltert werden:\n0) Alle anzeigen\n1) PC\n2) Android\n3) XBox\n4) Playstation\n5) Nintendo Switch\n"))
+                platform = int(input("""Nach welcher Platform soll gefiltert werden:
+                                     \n0) Alle anzeigen\n1) PC\n2) Android\n3) XBox\n4) Playstation\n5) Nintendo Switch\n"""))
 
                 self.setPlatform(self.platformList[platform])
                 break
@@ -88,7 +93,6 @@ class MainWindow(QWidget):
 
     def button_clicked(self):
         print('clicked')
-
 
 base_url = "https://www.gamerpower.com/api/giveaways"
 
